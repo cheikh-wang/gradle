@@ -55,6 +55,11 @@ class DefaultPluginArtifactRepositories implements PluginArtifactRepositories {
     @Override
     public void applyRepositoriesTo(RepositoryHandler repositories) {
         if (isExclusiveContentInUse() && !repositories.isEmpty()) {
+            // 打印 repositories 参数
+            System.err.println("-------------> Repositories:");
+            for (Repository repository : repositories) {
+                System.err.println("- " + repository.getUrl());
+            }
             throw new InvalidUserCodeException("When using exclusive repository content in 'settings.pluginManagement.repositories', you cannot add repositories to 'buildscript.repositories'.\n" +
                 new DocumentationRegistry().getDocumentationRecommendationFor("information", "declaring_repositories", "declaring_content_exclusively_found_in_one_repository"));
         }
